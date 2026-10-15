@@ -28,13 +28,9 @@ class Character {
     health = newHealth;
     level = newLevel;
   }
-  bool deadChar(){
-    if(health == 0){
-      cout << name << " is dead and cannot do any further actions." << "\n";
-      return true;
-    }
-      return false;
-  }
+  bool deadChar() const {
+    return health == 0;
+}
   string getName(){
     return name;
   }
@@ -115,7 +111,6 @@ cout << name << " Now has " << ability << " " << abilityName[changePlace]
   }
   void attack(Character& target){
     if(deadChar()){
-      invInp();
       return;
   }
     cout << getName() << " attacked " << target.getName() << "\n";
@@ -123,7 +118,7 @@ cout << name << " Now has " << ability << " " << abilityName[changePlace]
     target.takeDamage(damage);
     }
   void levelUp(int newLevel){
-    if(newLevel < 1 || newLevel > 100){
+    if(newLevel < 1 || newLevel > 100 || (newLevel + level) > 100){
       cout << "Invalid Input. \n";
       return;
     }
