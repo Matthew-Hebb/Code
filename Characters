@@ -13,21 +13,18 @@ class Character {
   int level;
 
   public:
+
+  Character(string newName, int newHealth, int newLevel){
+    name = newName;
+    health = newHealth;
+    level = newLevel;
+  }
   bool deadChar(){
     if(health == 0){
       cout << name << " is dead and cannot do any further actions. \n";
       return true;
     }
       return false;
-  }
-  void setName(string newName){
-    name = newName;
-  }
-  void setHealth(int newHealth){
-    health = newHealth;
-  }
-  void setLevel(int newLevel){
-    level = newLevel;
   }
   string getName(){
     return name;
@@ -93,10 +90,8 @@ class Character {
 };
 
 int main() {
-Character Player;
-Player.setName("Wizard");
-Player.setHealth(100);
-Player.setLevel(1);
+Character Test("Hobbit", 100, 1);
+Character Player("Wizard", 100, 1);
 Player.displayInfo();
 Player.takeDamage(20);
 Player.displayInfo();
@@ -105,10 +100,7 @@ Player.displayInfo();
 Player.heal(200);
 Player.displayInfo();
 cout << Player.getHealth() << "\n";
-Character NPC;
-NPC.setName("Knight");
-NPC.setHealth(100);
-NPC.setLevel(1);
+Character NPC("Knight", 100, 3);
 NPC.levelUp(2);
 NPC.displayInfo();
 NPC.takeDamage(100);
