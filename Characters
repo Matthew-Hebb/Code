@@ -11,9 +11,10 @@ class Character {
   string name;
   int health;
   int level;
-
   public:
-
+  
+  int abilityPow[5];
+ 
   Character(string newName, int newHealth, int newLevel){
     name = newName;
     health = newHealth;
@@ -21,7 +22,7 @@ class Character {
   }
   bool deadChar(){
     if(health == 0){
-      cout << name << " is dead and cannot do any further actions. \n";
+      cout << name << " is dead and cannot do any further actions." << "\n";
       return true;
     }
       return false;
@@ -34,6 +35,38 @@ class Character {
   }
   int getLevel(){
     return level;
+  }
+  string abilityName[5] = {
+    "Strength",
+    "Defense",
+    "Magic",
+    "Speed",
+    "Luck"
+};
+void changAbility(int changePlace, int ability){
+ if(changePlace > 4 || changePlace < 0 || ability > 100 || ability < 0){
+  cout << "Invalid input, number exceeds ability list or power is greater than 100.\n";
+  return;
+ }
+int preAb = abilityPow[changePlace];
+abilityPow[changePlace] = ability;
+cout << name << " Now has " << ability << " " << abilityName[changePlace] 
+<< " instead of " << preAb << " " << abilityName[changePlace] << "." << "\n";
+}
+  void setAbilities(int strength, int defense, int magic, int speed, int luck){
+    if(strength < 0 || strength > 100 || 
+        defense < 0 || defense > 100 || 
+        magic < 0 || magic > 100 || 
+        speed < 0 || speed > 100 || 
+        luck < 0 || luck > 100){
+      cout << "One of the values given is invalid. \n";
+      return;
+    }
+    abilityPow[0] = strength;
+    abilityPow[1] = defense;
+    abilityPow[2] = magic;
+    abilityPow[3] = speed;
+    abilityPow[4] = luck;
   }
   void heal(int healAmt){
     if(!deadChar()){
@@ -62,10 +95,10 @@ class Character {
     if(deadChar()){
       return;
     }
-    cout << name << " took " << damAmt << " damage. \n";
+    cout << name << " took " << damAmt << " damage." << "\n";
     if(damAmt >= health){
       health = 0;
-      cout << name << " has died. \n";
+      cout << name << " has died." << "\n";
       return;
     }
     else{
@@ -87,12 +120,24 @@ class Character {
     cout << "Health: " << health << " \n";
     cout << "Level: " << level << " \n";
   }
+  void displayAbilities(){
+    cout << name << "Abilities: \n";
+    for(int i = 0; i < 5; i++){
+      cout << abilityName[i] << ": " << abilityPow[i] << "\n";
+    }
+  }
 };
 
 int main() {
 Character Test("Hobbit", 100, 1);
+Test.setAbilities(12, 2, 11, 30, 50);
+Test.displayAbilities();
+Test.changAbility(3, 50);
 Character Player("Wizard", 100, 1);
+Player.setAbilities(120, 6, 11, 30, 50);
 Player.displayInfo();
+Player.changAbility(5, 3);
+Player.changAbility(2, 101);
 Player.takeDamage(20);
 Player.displayInfo();
 Player.heal(5);
