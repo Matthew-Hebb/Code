@@ -104,7 +104,7 @@ Player.heal(5);
 Player.displayInfo();
 Player.heal(200);
 Player.displayInfo();
-
+cout << Player.getHealth() << "\n";
 Character NPC;
 NPC.setName("Knight");
 NPC.setHealth(100);
@@ -116,6 +116,7 @@ NPC.displayInfo();
 NPC.levelUp(2);
 NPC.heal(100);
 NPC.displayInfo();
-
+int levls = NPC.getLevel();
+cout << levls << "\n";
 return 0;
 }
