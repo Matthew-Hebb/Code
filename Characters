@@ -1,0 +1,121 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <numeric>
+
+using namespace std;
+
+class Character {
+  private:
+  string name;
+  int health;
+  int level;
+
+  public:
+  bool deadChar(){
+    if(health == 0){
+      cout << name << " is dead and cannot do any further actions. \n";
+      return true;
+    }
+      return false;
+  }
+  void setName(string newName){
+    name = newName;
+  }
+  void setHealth(int newHealth){
+    health = newHealth;
+  }
+  void setLevel(int newLevel){
+    level = newLevel;
+  }
+  string getName(){
+    return name;
+  }
+  int getHealth(){
+    return health;
+  }
+  int getLevel(){
+    return level;
+  }
+  void heal(int healAmt){
+    if(!deadChar()){
+      if(healAmt > 0){
+        cout << name << " attempted to heal " << healAmt << "\n";
+        if((health + healAmt) > 100){
+          health = 100;
+          return;
+        }
+        else{
+          health = health + healAmt;
+          return;
+        }
+      }
+      else {
+        cout << "Not a valid number to heal.";
+        return;
+      }
+    }
+  }
+  void takeDamage(int damAmt){
+    if(damAmt < 0){
+      cout << "Invalid input, damage cannot be below 0. \n";
+      return;
+    }
+    if(deadChar()){
+      return;
+    }
+    cout << name << " took " << damAmt << " damage. \n";
+    if(damAmt >= health){
+      health = 0;
+      cout << name << " has died. \n";
+      return;
+    }
+    else{
+      health = health - damAmt;
+    }
+  }
+  void attackPower(){
+    if(!deadChar()){
+    int damage = level * 2;
+  }
+  }
+  void levelUp(int newLevel){
+    if(!deadChar()){
+    level = level + newLevel;
+    }
+  }
+  void displayInfo(){
+    cout << "Name: " << name << " \n";
+    cout << "Health: " << health << " \n";
+    cout << "Level: " << level << " \n";
+  }
+};
+
+int main() {
+Character Player;
+Player.setName("Wizard");
+Player.setHealth(100);
+Player.setLevel(1);
+Player.displayInfo();
+Player.takeDamage(20);
+Player.displayInfo();
+Player.heal(5);
+Player.displayInfo();
+Player.heal(200);
+Player.displayInfo();
+
+Character NPC;
+NPC.setName("Knight");
+NPC.setHealth(100);
+NPC.setLevel(1);
+NPC.levelUp(2);
+NPC.displayInfo();
+NPC.takeDamage(100);
+NPC.displayInfo();
+NPC.levelUp(2);
+NPC.heal(100);
+NPC.displayInfo();
+
+return 0;
+}
