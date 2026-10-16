@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <numeric>
 
+
 using namespace std;
 
 class Character {
@@ -16,15 +17,24 @@ class Character {
   };
   public:
   
+  enum class Index{
+  STRENGTH = 0,
+  DEFENSE = 1,
+  MAGIC = 2,
+  SPEED = 3,
+  LUCK = 4
+};
+ 
   void invInp(){
    cout << "Invalid Input. \n";
   }
-  Character(string newName, int newHealth, int newLevel){
+  Character(string newName, int newHealth, int newLevel)
+  : name(newName), health(0), level(1) 
+  {
     if(newHealth < 0 || newHealth > 100 || newLevel < 0 || newLevel > 100){
       invInp();
       return;
     }
-    name = newName;
     health = newHealth;
     level = newLevel;
   }
@@ -47,15 +57,12 @@ class Character {
     "Speed",
     "Luck"
 };
-void changAbility(int changePlace, int ability){
- if(changePlace > 4 || changePlace < 0 || ability > 100 || ability < 0){
-  invInp();
-  return;
- }
-int preAb = abilityPow[changePlace];
-abilityPow[changePlace] = ability;
-cout << name << " Now has " << ability << " " << abilityName[changePlace] 
-<< " instead of " << preAb << " " << abilityName[changePlace] << "." << "\n";
+void changAbility(Index changePlace, int ability){
+int nowAb = static_cast<int>(changePlace);
+int preAb = abilityPow[nowAb];
+abilityPow[nowAb] = ability;
+cout << name << " Now has " << ability << " " << abilityName[nowAb] 
+<< " instead of " << preAb << " " << abilityName[nowAb] << "." << "\n";
 }
   void setAbilities(int strength, int defense, int magic, int speed, int luck){
     if(strength < 0 || strength > 100 || 
@@ -143,10 +150,10 @@ int main() {
 Character Test("Hobbit", 100, 1);
 Test.setAbilities(12, 2, 11, 30, 50);
 Test.displayAbilities();
-Test.changAbility(2, 5);
+Test.changAbility(Character::Index::MAGIC, 5);
 Character Player("Wizard", 100, 1);
 Player.setAbilities(12, 6, 11, 30, 70);
-Player.changAbility(2, 10);
+Player.changAbility(Character::Index::MAGIC, 10);
 Player.takeDamage(20);
 Player.displayInfo();
 Player.displayAbilities();
