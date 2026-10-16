@@ -9,9 +9,9 @@ using namespace std;
 
 class Character {
   private:
-  string name;
-  int health;
-  int level;
+  string name = "Defualt";
+  int health = 100;
+  int level = 1;
   int abilityPow[5] = {
     0, 0, 0, 0, 0
   };
@@ -28,7 +28,7 @@ class Character {
   void invInp(){
    cout << "Invalid Input. \n";
   }
-  Character(string newName, int newHealth, int newLevel)
+  Character(const string& newName, int newHealth, int newLevel)
   : name(newName), health(0), level(1) 
   {
     if(newHealth < 0 || newHealth > 100 || newLevel < 0 || newLevel > 100){
@@ -139,7 +139,7 @@ cout << name << " Now has " << ability << " " << abilityName[nowAb]
     cout << "Level: " << level << " \n";
   }
   void displayAbilities(){
-    cout << name << "Abilities: \n";
+    cout << name << " Abilities: \n";
     for(int i = 0; i < 5; i++){
       cout << abilityName[i] << ": " << abilityPow[i] << "\n";
     }
