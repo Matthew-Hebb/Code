@@ -45,6 +45,8 @@ void viewInventory() {
 }
 
 void addStock() {
+    int uInpt = 2;
+    while(uInpt == 2) {
     cout << "What product would you like to add: \n";
 
     string usrAdd;
@@ -75,34 +77,33 @@ void addStock() {
     if(usrAmt < 1){
       cout << "Invalid Input \n";
       return;
-    inventory.push_back({usrAdd, usrAmt});
-    found = true;
+  }
   }
   if(yn == 2) {
     cout << "Understood have a nice day! \n";
     return;
   } 
-  }
     cout << "Added! What would you like to do next?\n"
          << "1.Back to menu\n"
          << "2.Add more stocks\n"
          << "3.View current inventory\n";
-
-    int uInp = 0;
-    cin >> uInp;
-    if (uInp == 1) {
+    cin >> uInpt;
+    if (uInpt == 1) {
         return;
     }
-    else if (uInp == 2) {
-        addStock();
-    }
-    else {
+  
+    if(uInpt == 3 ) {
         listAll();
         cout << "\n";
         cout << "Enter 'B' when you are finished! \n";
         badInputs();
         return;
     }
+    if(uInpt != 1 && uInpt != 2 && uInpt !=3){
+      cout << "invalid input";
+      return;
+    }
+  }
 }
 }
 void searchProduct() {
