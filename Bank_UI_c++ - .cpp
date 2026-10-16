@@ -56,32 +56,33 @@ void addStock() {
         cout << "Enter an amount: \n";
        int usrAmt = 0;
     cin >> usrAmt;
-    for (size_t i = 0; i < inventory.size(); i++) {
-      if (inventory[i].name == usrAdd) {
-      inventory[i].quantity = inventory[i].quantity + usrAmt;
-      }
+    if(usrAmt < 1){
+      cout << "Invalid Input \n";
+      return;
     }
-       }
+    inventory[i].quantity = inventory[i].quantity + usrAmt;
+    break;
     }
-  
-  if(found == false){
+    }
+  while(found == false){
   cout << "There is no Product in our inventory, would you like to add it? \n" << "1.Yes \n" << "2.No \n";
   int yn = 0;
   cin >> yn;
   if(yn == 1){
   cout << "Enter an amount: \n";
-       int usrAmt = 0;
+    int usrAmt = 0;
     cin >> usrAmt;
+    if(usrAmt < 1){
+      cout << "Invalid Input \n";
+      return;
     inventory.push_back({usrAdd, usrAmt});
+    found = true;
   }
-
   if(yn == 2) {
-    cout << "Understood please try again: \n";
-    addStock();
+    cout << "Understood have a nice day! \n";
+    return;
+  } 
   }
-  
-  }
-
     cout << "Added! What would you like to do next?\n"
          << "1.Back to menu\n"
          << "2.Add more stocks\n"
@@ -103,39 +104,12 @@ void addStock() {
         return;
     }
 }
-
-void removeStock() {
-    cout << "What product would you like to remove: \n";
-
-    string usrRem;
-    cin >> usrRem;
-
-    cout << "How many items would you like to remove? ";
-
-    int usrNum;
-    cin >> usrNum;
-
-    for (size_t i = 0; i < inventory.size(); i++) {
-
-        if (inventory[i].name == usrRem) {
-
-            while (usrNum > inventory[i].quantity || usrNum < 1) {
-                cout << "Number exceeds inventory or is invalid. There are only "
-                     << inventory[i].quantity
-                     << " Products. Please try again. \n";
-                cin >> usrNum;
-            }
-
-            inventory[i].quantity = inventory[i].quantity - usrNum;
-        }
-    }
-    cout << "Done! \n";
 }
-
 void searchProduct() {
+       bool found = false;
+       while(found == false){
        string uInput;
        cin >> uInput;
-       bool found = false;
        for(size_t i = 0; i < inventory.size(); i++) {
         if(inventory[i].name == uInput) {
           found = true;
@@ -146,11 +120,43 @@ void searchProduct() {
           return;
         }
        }
-         if(found == false){
-          cout << "There is no Product in our inventory, please try again. \n";
-          searchProduct();
-         }
+        cout << "There is no Product in our inventory, please try again. \n";
+       }
   }
+void removeStock() {
+    cout << "What product would you like to remove: \n";
+    bool found = false;
+    int num = 0;
+    string usrRem;
+       while(found == false){
+        cin >> usrRem;
+       for(size_t i = 0; i < inventory.size(); i++) {
+        if(inventory[i].name == usrRem) {
+          found = true;
+          cout << "We have " << inventory[i].quantity << " in stock!";
+          cout << "\n";
+          num = i;
+        }
+       }
+       if(found == false){
+        cout << "There is no Product in our inventory, please try again. \n";
+       }
+       }
+
+    cout << "How many items would you like to remove? ";
+
+    int usrNum;
+    cin >> usrNum;
+    while (usrNum > inventory[num].quantity || usrNum < 1) {
+                cout << "Number exceeds inventory or is invalid. There are only "
+                     << inventory[num].quantity
+                     << " Products. Please try again. \n";
+                cin >> usrNum;
+            }
+
+            inventory[num].quantity = inventory[num].quantity - usrNum;
+    cout << "Done! \n";
+}
 void mainMenu() {
     int userInput = 0;
     while (userInput != 5) {
